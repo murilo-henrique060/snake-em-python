@@ -36,6 +36,8 @@ maçã_sprite.fill((255,0,0))
 #Direção
 direção_atual = 4
 
+controle = True
+
 relogio = pygame.time.Clock()
 
 while True:
@@ -45,7 +47,7 @@ while True:
         if evento.type == QUIT:
             pygame.quit()
             quit()
-        if evento.type == KEYDOWN:
+        if evento.type == KEYDOWN and controle:
             if evento.key == K_UP and direção_atual != 3:
                 direção_atual = 1
 
@@ -57,6 +59,8 @@ while True:
 
             if evento.key == K_LEFT and direção_atual != 2:
                 direção_atual = 4
+            
+            controle = False
             
     #Limitando o FPS
     relogio.tick(10)
@@ -70,21 +74,23 @@ while True:
     #Desenhando a cobra
     for pos in cobra:
         janela.blit(cobra_sprite, pos)
+    
+    controle = True
 
     #Movendo a cobra
     for pos in range(len(cobra) -1,0,-1):
         cobra[pos] = (cobra[pos -1][0], cobra[pos -1][1])
     
-    if direção_atual == 1:
+    if direção_atual == 1: #Cima
         cobra[0] = (cobra[0][0], cobra[0][1] - velocidade)
     
-    if direção_atual == 2:
+    if direção_atual == 2: #Direita
         cobra[0] = (cobra[0][0] + velocidade, cobra[0][1])
     
-    if direção_atual == 3:
+    if direção_atual == 3: #Baixo
         cobra[0] = (cobra[0][0], cobra[0][1] + velocidade)
     
-    if direção_atual == 4:
+    if direção_atual == 4: #Esquerda
         cobra[0] = (cobra[0][0] - velocidade, cobra[0][1])
 
     #Verificando a colisão com a maçã

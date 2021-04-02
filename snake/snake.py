@@ -52,10 +52,13 @@ def jogo():
         pygame.draw.line(janela,CINZA,(linhas_verticais,69),(linhas_verticais,599),2)
 
     #Desenhando a borda
-    # pygame.draw.rect(janela,BRANCO,(9,69,580,521),20)
+    pygame.draw.line(janela,CINZA2,(0,79),(599,79),20)
+    pygame.draw.line(janela,CINZA2,(0,589),(599,589),20)
+    pygame.draw.line(janela,CINZA2,(9,79),(9,599),20)
+    pygame.draw.line(janela,CINZA2,(589,79),(589,599),20)
 
     #Verificando a Colisão Com as Bordas
-    if cobra[0][0] < 0 or cobra[0][0] > 599 or cobra[0][1] < 0 or cobra[0][1] > 599:
+    if cobra[0][0] < 20 or cobra[0][0] > 578 or cobra[0][1] < 80 or cobra[0][1] > 578:
         game_over()
 
 def tela_inicial():
@@ -74,16 +77,17 @@ def tela_inicial():
     janela.blit(texto,(145,350))
 
 def game_over():
-    global cobra, direção_atual,pontuação
+    global cobra, direção_atual,pontuação, maçã
     cobra = [(280,290), (290,290), (300,290)]
     direção_atual = 4
     pontuação = 0
+    maçã = gerar_posição()
 
 def gerar_posição():
     while True:
         continuar = True
-        posição1 = random.randint(0,59) *10
-        posição2 = random.randint(7,59) *10
+        posição1 = random.randint(2,57) *10
+        posição2 = random.randint(8,57) *10
         posição = (posição1, posição2)
         for posições in cobra:
             if posições == posição:
@@ -101,6 +105,7 @@ VERDE3 = (0,230,0) #Cor do Centro do Botão
 BRANCO = (255,255,255) #Cor do Subtítulo
 VERMELHO = (255,0,0) #Cor da Maçã
 CINZA = (15,15,15) #Cor Das Linhas
+CINZA2 = (75,75,75)
 
 #Janela
 janela = pygame.display.set_mode((600,600))
